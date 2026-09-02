@@ -1,8 +1,3 @@
----
-layout: null
-title: Poker Night
----
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -1000,6 +995,7 @@ function countdown(){
   const s = Math.floor(ms / 1000);
   return { done:false, d:Math.floor(s/86400), h:Math.floor(s/3600)%24, m:Math.floor(s/60)%60, s:s%60 };
 }
+const mapHref = () => "https://google.com" + encodeURIComponent(EVENT.venue + " " + EVENT.suburb);
 
 /* ==========================================================================
    TICKER
