@@ -216,12 +216,6 @@ main{padding:30px 26px 40px}
 
 /* ---------- venue ---------- */
 .venue .addr{font-family:var(--display);font-size:26px;line-height:1.08;letter-spacing:.02em;margin-bottom:4px}
-.venue .sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:14px}
-.map-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-2);
-  padding:9px 15px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--cream);border-radius:2px;transition:border-color .15s,background .15s}
-.map-btn:hover{border-color:var(--felt-hi);background:var(--felt-dim);color:var(--felt-hi);text-decoration:none}
 
 /* ---------- meters ---------- */
 .meter{margin-bottom:14px}
@@ -766,6 +760,7 @@ const EVENT = {
   timeLabel:"5:00 PM",
   cardsAt:  "5-ish",
   venue:    "Address as per before",
+  venueNote:"Same place as last time. The address is in the group chat, not on this page.",
   season:   "Season 2026",
 };
 
@@ -774,16 +769,16 @@ const MONEY = { buyIn:50, rebuy:50, addon:50, stack:5000, levelMins:20, rebuyClo
 /* Seat numbers are derived from this order — add or remove a player and the
    whole page renumbers itself. Card ranks run down from the ace. */
 const PLAYERS = [
-  { id:"peter",    name:"Peter Horsfall",   rank:"A",  suit:"♠", host:true },
-  { id:"stephen",  name:"Stephen Horsfall", rank:"K",  suit:"♥" },
-  { id:"matt",     name:"Matt Cafari",      rank:"Q",  suit:"♦" },
-  { id:"scott",    name:"Scott Young",      rank:"J",  suit:"♣", flying:true },
-  { id:"kyle",     name:"Kyle Magan",       rank:"10", suit:"♠", maybe:true },
-  { id:"martin",   name:"Martin Peña",      rank:"9",  suit:"♥" },
-  { id:"damo",     name:"Damo Piv",         rank:"8",  suit:"♦" },
-  { id:"jeevan",   name:"Jeevan Ng",        rank:"7",  suit:"♣" },
-  { id:"vinnie",   name:"Vinnie Nguyen",    rank:"6",  suit:"♦" },
-  { id:"piet",     name:"Piet Moore",       rank:"5",  suit:"♠", maybe:true },
+  { id:"peter",    name:"Peter",   rank:"A",  suit:"♠", host:true },
+  { id:"stephen",  name:"Stephen", rank:"K",  suit:"♥" },
+  { id:"matt",     name:"Matt",    rank:"Q",  suit:"♦" },
+  { id:"scott",    name:"Scott",   rank:"J",  suit:"♣", flying:true },
+  { id:"kyle",     name:"Kyle",    rank:"10", suit:"♠", maybe:true },
+  { id:"martin",   name:"Martin",  rank:"9",  suit:"♥" },
+  { id:"damo",     name:"Damo",    rank:"8",  suit:"♦" },
+  { id:"jeevan",   name:"Jeevan",  rank:"7",  suit:"♣" },
+  { id:"vinnie",   name:"Vinnie",  rank:"6",  suit:"♦" },
+  { id:"piet",     name:"Piet",    rank:"5",  suit:"♠", maybe:true },
 ].map((p, i) => ({ ...p, seat:i + 1, role:p.host ? "Host · Dealer" : "Seat " + (i + 1) }));
 
 /* Wins on the board. Edit on the night in the Leaderboard tab, then use
@@ -864,7 +859,8 @@ try{ localStorage.removeItem("pokernight.wins"); }catch(e){}
 /* ---------- faces ----------
    Drop photos next to this file as photos/peter.jpg (or .png) and they appear.
    Until then everyone gets a placeholder face with their initials. */
-const initials = n => n.trim().split(/\s+/).map(w => w[0]).slice(0, 2).join("").toUpperCase();
+const initials = n => { const w = n.trim().split(/\s+/);
+  return (w.length > 1 ? w.map(x => x[0]).slice(0, 2).join("") : w[0].slice(0, 2)).toUpperCase(); };
 const avatar = (p, size) => `<span class="av av-${size}">
   <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="23" r="11.5"/><path d="M7.5 62c0-13.2 11-20.5 24.5-20.5S56.5 48.8 56.5 62z"/></svg>
   <b>${esc(initials(p.name))}</b>
@@ -995,7 +991,6 @@ function countdown(){
   const s = Math.floor(ms / 1000);
   return { done:false, d:Math.floor(s/86400), h:Math.floor(s/3600)%24, m:Math.floor(s/60)%60, s:s%60 };
 }
-const mapHref = () => "https://google.com" + encodeURIComponent(EVENT.venue + " " + EVENT.suburb);
 
 /* ==========================================================================
    TICKER
@@ -1048,12 +1043,12 @@ function nightTab(){
   <div class="hero">
     <div class="kick">${EVENT.season} · ${gameLabel()}</div>
     <h2>POKER NIGHT</h2>
-    <div class="sub">${EVENT.dayLabel} · from ${EVENT.timeLabel} · ${esc(EVENT.suburb.split(",")[0])}</div>
+    <div class="sub">${EVENT.dayLabel} · from ${EVENT.timeLabel}</div>
   </div>
 
   ${tableHTML(PLAYERS, { demo:true, mid:`
     <div class="lg">${EVENT.dayLabel.replace(" 2026","").toUpperCase()}</div>
-    <div class="sm">${esc(EVENT.venue)} · ${esc(EVENT.suburb.split(",")[0])}</div>
+    <div class="sm">${esc(EVENT.venue)}</div>
     <div class="sm" style="margin-top:4px">from ${EVENT.cardsAt} · ${money(MONEY.buyIn)} in</div>
     <div class="pay-felt">
       <span><b>1st</b> the pot</span>
@@ -1066,9 +1061,7 @@ function nightTab(){
       <div class="panel-hd"><h3>WHERE</h3><span class="c">the felt</span></div>
       <div class="panel-bd venue">
         <div class="addr">${esc(EVENT.venue)}</div>
-        <div class="sub">${esc(EVENT.suburb)}</div>
-        <p class="mini" style="margin-bottom:16px">${esc(EVENT.venueNote)}</p>
-        <a class="map-btn" href="${mapHref()}" target="_blank" rel="noopener">Open in maps →</a>
+        <p class="mini">${esc(EVENT.venueNote)}</p>
       </div>
     </div>
 
