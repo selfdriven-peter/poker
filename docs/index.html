@@ -7,7 +7,7 @@
 <link rel="shortcut icon" href="assets/img/selfdriven-you-logo-round-4colour-blend.png">
 <link rel="apple-touch-icon" href="assets/img/selfdriven-you-logo-round-4colour-blend.png">
 <title>Pete — pages</title>
-<meta name="description" content="A small shelf of one-off pages Pete has made for people.">
+<meta name="description" content="A small shelf of pages Pete has made — selfdriven things, and a few one-offs for particular people.">
 <meta name="theme-color" content="#09090f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +16,7 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="ic-spade" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.6c-.34 0-.66.15-.87.42C9.3 5.4 3.4 9.2 3.4 13.9c0 2.6 1.95 4.6 4.36 4.6 1.2 0 2.24-.47 2.98-1.2-.2 1.9-.9 3.2-1.86 3.85a.6.6 0 0 0 .34 1.1h5.56a.6.6 0 0 0 .34-1.1c-.96-.65-1.66-1.95-1.86-3.86.74.74 1.78 1.21 2.98 1.21 2.41 0 4.36-2 4.36-4.6 0-4.7-5.9-8.5-7.73-10.88a1.1 1.1 0 0 0-.87-.42z"/></symbol>
   <symbol id="ic-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></symbol>
+  <symbol id="ic-8ball" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="2.1"/><circle cx="12" cy="14.5" r="2.9"/></symbol>
   <symbol id="ic-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
 </svg>
 
@@ -69,7 +70,16 @@ h1 .accent{color:var(--caring)}
 .sub{font-size:clamp(15px,2.2vw,18px);color:var(--muted);max-width:460px;
   margin:20px auto 46px;line-height:1.65}
 
-/* the two blocks */
+/* sections */
+.section{text-align:left;margin-top:44px}
+.section:first-of-type{margin-top:0}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.sec-title{font-family:'Bricolage Grotesque',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.sec-head::after{content:'';flex:1;height:1px;background:var(--border)}
+.sec-sd .sec-title{color:var(--chill-bright)}
+
+/* the blocks */
 .blocks{display:grid;grid-template-columns:1fr 1fr;gap:18px;text-align:left}
 .block{position:relative;display:flex;flex-direction:column;justify-content:space-between;
   min-height:230px;padding:26px 24px 24px;border-radius:24px;text-decoration:none;
@@ -108,6 +118,13 @@ h1 .accent{color:var(--caring)}
 .b-you .b-icon{background:var(--caring-dim);color:var(--caring)}
 .b-you .b-eyebrow,.b-you .b-go{color:var(--caring)}
 
+/* 8 ball — chill purple */
+.b-ball{border-color:rgba(123,108,255,.22)}
+.b-ball::after{background:radial-gradient(120% 100% at 20% 0%, rgba(123,108,255,.12), transparent 65%)}
+.b-ball:hover{border-color:rgba(123,108,255,.45);box-shadow:0 20px 50px rgba(123,108,255,.12)}
+.b-ball .b-icon{background:var(--chill-dim);color:var(--chill-bright)}
+.b-ball .b-eyebrow,.b-ball .b-go{color:var(--chill-bright)}
+
 footer{position:relative;z-index:1;border-top:1px solid var(--border);
   padding:34px 24px 40px;text-align:center}
 .foot-tag{font-size:13px;color:var(--muted);margin-bottom:5px}
@@ -121,6 +138,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
   .block{min-height:0;padding:22px 20px}
   .b-icon{margin-bottom:16px}
   .b-eyebrow{margin-top:0}
+  .section{margin-top:34px}
 }
 @media (prefers-reduced-motion:reduce){
   .block,.b-go svg{transition:none}
@@ -136,29 +154,49 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);
 
   <div class="inner">
     <span class="markdots" id="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-    <h1>A couple of<br><span class="accent">pages.</span></h1>
-    <p class="sub">One-offs made for particular people, parked here so the link keeps working. Pick one.</p>
+    <h1>A few<br><span class="accent">pages.</span></h1>
+    <p class="sub">selfdriven things, plus a few one-offs made for particular people. All parked here so the links keep working.</p>
 
-    <div class="blocks">
-      <a class="block b-poker" href="pages/poker-night.html">
-        <span class="b-icon"><svg><use href="#ic-spade"/></svg></span>
-        <div>
-          <div class="b-eyebrow">19 Sep 2026</div>
-          <div class="b-title">Poker Night</div>
-          <p class="b-line">The where, the when, the buy-in and the house rules.</p>
-          <span class="b-go">Deal me in <svg><use href="#ic-arrow-right"/></svg></span>
-        </div>
-      </a>
+    <section class="section sec-sd">
+      <div class="sec-head"><span class="sec-title">selfdriven</span></div>
+      <div class="blocks">
+        <a class="block b-ball" href="pages/selfdriven-8-ball.html">
+          <span class="b-icon"><svg><use href="#ic-8ball"/></svg></span>
+          <div>
+            <div class="b-eyebrow">selfdriven.you</div>
+            <div class="b-title">Magic 8 Ball</div>
+            <p class="b-line">Pick a state of mind, ask a question, shake the ball. Advice in the four-mode rhythm.</p>
+            <span class="b-go">Ask the ball <svg><use href="#ic-arrow-right"/></svg></span>
+          </div>
+        </a>
 
-      <a class="block b-you" href="pages/selfdriven-you-russ.html">
-        <span class="b-icon"><svg><use href="#ic-sparkles"/></svg></span>
-        <div>
-          <div class="b-eyebrow">for Russ</div>
-          <div class="b-title">One small thing</div>
-          <p class="b-line">Not a plan, not a system. One thing for tomorrow — plus a listen.</p>
-          <span class="b-go">Have a look <svg><use href="#ic-arrow-right"/></svg></span>
-        </div>
-      </a>
+        <a class="block b-you" href="pages/selfdriven-you-russ.html">
+          <span class="b-icon"><svg><use href="#ic-sparkles"/></svg></span>
+          <div>
+            <div class="b-eyebrow">for Russ</div>
+            <div class="b-title">One small thing</div>
+            <p class="b-line">Not a plan, not a system. One thing for tomorrow — plus a listen.</p>
+            <span class="b-go">Have a look <svg><use href="#ic-arrow-right"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sec-head"><span class="sec-title">Other</span></div>
+      <div class="blocks">
+        <a class="block b-poker" href="pages/poker-night.html">
+          <span class="b-icon"><svg><use href="#ic-spade"/></svg></span>
+          <div>
+            <div class="b-eyebrow">19 Sep 2026</div>
+            <div class="b-title">Poker Night</div>
+            <p class="b-line">The where, the when, the buy-in and the house rules.</p>
+            <span class="b-go">Deal me in <svg><use href="#ic-arrow-right"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
     </div>
   </div>
 </div>
